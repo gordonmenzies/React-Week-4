@@ -14,9 +14,9 @@ const Counter = () => {
 
   return (
     <div className="counter__container">
-      <h1 onClick={increment}>+</h1>
-      <p>{counter}</p>
-      <h1 onClick={decrement}>-</h1>
+      <h3 onClick={increment}>-</h3>
+      <h3>{counter}</h3>
+      <h3 onClick={decrement}>+</h3>
     </div>
   );
 };
