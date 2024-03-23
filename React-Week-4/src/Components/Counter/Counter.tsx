@@ -9,14 +9,18 @@ const Counter = () => {
   };
 
   const decrement = () => {
-    setCounter(counter - 1);
+    if (counter === 0) {
+      return;
+    } else {
+      setCounter(counter - 1);
+    }
   };
 
   return (
     <div className="counter__container">
-      <h3 onClick={increment}>-</h3>
+      <h3 onClick={decrement}>-</h3>
       <h3>{counter}</h3>
-      <h3 onClick={decrement}>+</h3>
+      <h3 onClick={increment}>+</h3>
     </div>
   );
 };
