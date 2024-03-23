@@ -15,12 +15,17 @@ function App() {
   });
 
   const searchEmployee = (event: React.FormEvent<HTMLInputElement>) => {
-    setInputValue(event.currentTarget.value.toLowerCase);
+    setInputValue(event.currentTarget.value.toLowerCase());
     const searchedGroup = teamArray.filter((member) => {
-      return member.name.includes(inputValue);
+      return (
+        member.name.toLowerCase().includes(inputValue) ||
+        member.role.toLowerCase().includes(inputValue)
+      );
     });
-
-    console.log(searchedGroup);
+    setTeamArray(searchedGroup);
+    if (inputValue === "") {
+      setTeamArray(team);
+    }
   };
 
   return (
@@ -32,6 +37,15 @@ function App() {
         value={inputValue}
         onChange={searchEmployee}
       ></input>
+      <button
+        className="ticketTrackee__employeeListReset"
+        onClick={() => {
+          setTeamArray(team);
+          setInputValue("");
+        }}
+      >
+        reset list
+      </button>
       <div className="employeeList__container">{teamTSX}</div>
     </div>
   );
