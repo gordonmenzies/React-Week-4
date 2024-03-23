@@ -7,20 +7,22 @@ import { useState } from "react";
 function App() {
   const [inputValue, setInputValue] = useState("");
   const [teamArray, setTeamArray] = useState(team);
+  // save the original array so that the values that are entered are rememebered
 
   // setTeamArray(team);
 
-  const teamTSX = teamArray.map((member) => {
+  const employeeList = teamArray.map((member) => {
     return <Employee key={member.id} name={member.name} role={member.role} />;
   });
 
+  // how to update to the new inputValue rather than the previous inputValue
+
   const searchEmployee = (event: React.FormEvent<HTMLInputElement>) => {
+    console.log("event.target", event.currentTarget.value.toLowerCase());
     setInputValue(event.currentTarget.value.toLowerCase());
+    console.log("inputValue", inputValue);
     const searchedGroup = teamArray.filter((member) => {
-      return (
-        member.name.toLowerCase().includes(inputValue) ||
-        member.role.toLowerCase().includes(inputValue)
-      );
+      return member.name.toLowerCase().includes(inputValue);
     });
     setTeamArray(searchedGroup);
     if (inputValue === "") {
@@ -34,9 +36,8 @@ function App() {
       <input
         type="text"
         className="ticketTracker__employeeSearchInput"
-        value={inputValue}
         onChange={searchEmployee}
-      ></input>
+      />
       <button
         className="ticketTrackee__employeeListReset"
         onClick={() => {
@@ -46,7 +47,7 @@ function App() {
       >
         reset list
       </button>
-      <div className="employeeList__container">{teamTSX}</div>
+      <div className="employeeList__container">{employeeList}</div>
     </div>
   );
 }
