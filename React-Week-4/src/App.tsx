@@ -5,33 +5,33 @@ import "./App.scss";
 import { useState } from "react";
 
 function App() {
-  //const [inputValue, setInputValue] = useState("");
+  const [inputValue, setInputValue] = useState("");
   const [teamArray, setTeamArray] = useState(team);
 
-  setTeamArray(team);
+  // setTeamArray(team);
 
   const teamTSX = teamArray.map((member) => {
     return <Employee key={member.id} name={member.name} role={member.role} />;
   });
 
-  // const searchEmployee = (event: React.FormEvent<HTMLInputElement>) => {
-  //   setInputValue(event.currentTarget.value.toLowerCase);
-  //   const searchedGroup = teamArray.filter((member) => {
-  //     return member.name.includes(inputValue);
-  //   });
+  const searchEmployee = (event: React.FormEvent<HTMLInputElement>) => {
+    setInputValue(event.currentTarget.value.toLowerCase);
+    const searchedGroup = teamArray.filter((member) => {
+      return member.name.includes(inputValue);
+    });
 
-  //   console.log(searchedGroup);
-  // };
+    console.log(searchedGroup);
+  };
 
   return (
     <div className="tiketTracker__container">
       <h1> Ticket Tracker</h1>
-      {/* <input
+      <input
         type="text"
         className="ticketTracker__employeeSearchInput"
         value={inputValue}
         onChange={searchEmployee}
-      ></input> */}
+      ></input>
       <div className="employeeList__container">{teamTSX}</div>
     </div>
   );
