@@ -4,13 +4,36 @@ import "./App.scss";
 //import Team from "./assets/teamType";
 import { useState } from "react";
 
+interface CounterState {
+  [key: number]: number;
+}
+
 function App() {
   const [teamArray, setTeamArray] = useState(team);
+  const [counters, setCounters] = useState<CounterState>({});
+
+  const increment = (key: number) => {
+    setCounters((prevCounters) => ({
+      ...prevCounters,
+      [key]: (prevCounters[key] || 0) + 1,
+    }));
+  };
+
+  const decrement = (key: number) => {
+    if (counters[key] === 0) {
+      return;
+    } else {
+      setCounters((prevCounters) => ({
+        ...prevCounters,
+        [key]: (prevCounters[key] || 0) - 1,
+      }));
+    }
+  };
 
   // set state array with only elements that fit the search terms
   const searchEmployee = (event: React.FormEvent<HTMLInputElement>) => {
     const value = event.currentTarget.value.toLowerCase();
-    const searchedGroup = teamArray.filter((member) => {
+    const searchedGroup = team.filter((member) => {
       return member.name.toLowerCase().includes(value);
     });
     setTeamArray(searchedGroup);
@@ -21,9 +44,8 @@ function App() {
 
   // set state array with only elements that fit the search terms
   const searchRole = (event: React.FormEvent<HTMLSelectElement>) => {
-    let searchedGroup = [...team];
     const value = event.currentTarget.value.toLowerCase();
-    searchedGroup = team.filter((member) => {
+    const searchedGroup = team.filter((member) => {
       return member.role.toLowerCase().includes(value);
     });
     setTeamArray(searchedGroup);
@@ -34,21 +56,30 @@ function App() {
 
   // map over list of employees
   const employeeList = teamArray.map((member) => {
-    return <Employee key={member.id} name={member.name} role={member.role} />;
+    return (
+      <Employee
+        key={member.id}
+        name={member.name}
+        role={member.role}
+        increment={() => increment(member.id)}
+        decrement={() => decrement(member.id)}
+        count={counters[member.id]}
+      />
+    );
   });
 
   return (
     <div className="ticketTracker__container">
       <h1>Ticket Tracker</h1>
       <div className="ticketTracker__searchContainer">
-        <label>Search By Name</label>
         <input
+          placeholder="Search By Name"
           type="text"
           className="ticketTracker__employeeSearchInput"
           onChange={searchEmployee}
         />
         <select className="ticketTracker__roleSelect" onChange={searchRole}>
-          <option value="">--Search By Role--</option>
+          <option value="">All Roles</option>
           <option value="Software Developer">Software Developer</option>
           <option value="Junior Software Developer">
             Juniour Software Developer

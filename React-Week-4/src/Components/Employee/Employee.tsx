@@ -1,32 +1,33 @@
 import "./Employee.scss";
 import Counter from "../Counter/Counter";
-import { useState } from "react";
 
 type EmployeeProps = {
   name: string;
   role: string;
+  count: number;
+  key: number;
+  increment: (key: number) => void;
+  decrement: (key: number) => void;
 };
 
-const Employee = ({ name, role }: EmployeeProps) => {
-  const [counter, setCounter] = useState(0);
-
-  const increment = () => {
-    setCounter(counter + 1);
-  };
-
-  const decrement = () => {
-    if (counter === 0) {
-      return;
-    } else {
-      setCounter(counter - 1);
-    }
-  };
-
+const Employee = ({
+  name,
+  role,
+  count,
+  key,
+  increment,
+  decrement,
+}: EmployeeProps) => {
   return (
     <div className="employee__container">
       <p>{name}</p>
       <p>{role}</p>
-      <Counter count={counter} increment={increment} decrement={decrement} />
+      <Counter
+        count={count}
+        increment={increment}
+        decrement={decrement}
+        key={key}
+      />
     </div>
   );
 };
