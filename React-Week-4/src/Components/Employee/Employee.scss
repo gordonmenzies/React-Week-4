@@ -1,0 +1,36 @@
+* {
+  background-color: grey;
+}
+
+.employee__container {
+  border: solid black 5px;
+  margin: auto;
+  margin-bottom: 10px;
+  width: 48%;
+  border-radius: 8px;
+
+  p {
+    text-align: center;
+  }
+
+  .counter__container {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    border: solid black 5px;
+    margin: auto;
+    margin-bottom: 10px;
+    width: 48%;
+    border-radius: 8px;
+
+    p {
+      text-align: center;
+    }
+  }
+
+  h3 {
+    margin-left: 10%;
+    margin-right: 10%;
+    cursor: pointer;
+  }
+}
